@@ -25,8 +25,8 @@ COLUMN_TAG = "SET_COLUMN_TAG"
 NO_MATCH = "NO_MATCH"
 SKIP_OBJECT = "SKIP_OBJECT"
 
-# Chaves comuns não aceitam estes caracteres; governed tags (ex.: class.email_address) aceitam.
-_RESERVED_KEY_CHARS = re.compile(r"[.,\-=/:]")
+# O UC rejeita '.' e '=' em chaves comuns; governed tags existentes (ex.: class.email_address) aceitam '.'.
+_RESERVED_KEY_CHARS = re.compile(r"[.=]")
 
 
 @dataclass
@@ -89,7 +89,7 @@ def tag_problem(key: str, value: str, governed: dict[str, set[str]] | None) -> s
             return "GOVERNED_TAG_IS_KEY_ONLY"
         return None
     if _RESERVED_KEY_CHARS.search(key):
-        return "INVALID_TAG_KEY (. , - = / : só são aceitos em governed tags existentes)"
+        return "INVALID_TAG_KEY ('.' e '=' só são aceitos em governed tags existentes)"
     return None
 
 

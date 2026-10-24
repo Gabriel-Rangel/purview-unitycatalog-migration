@@ -6,7 +6,6 @@ import fnmatch
 import hashlib
 import html
 import re
-import unicodedata
 from dataclasses import dataclass
 from html.parser import HTMLParser
 
@@ -77,14 +76,10 @@ def pick_description(attributes: dict, cfg: CommentsConfig) -> tuple[str, str | 
     return "", None
 
 
-def slugify(value: str) -> str:
-    ascii_value = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
-    slug = re.sub(r"[^a-z0-9_]+", "_", ascii_value.lower())
-    return re.sub(r"_+", "_", slug).strip("_")
-
-
-def make_tag_key(prefix: str, kind: str, name: str) -> str:
-    key = f"{prefix}{kind}_{slugify(name)}"
+def tag_key(name: str) -> str:
+    """Purview name -> UC tag key, changing only what UC rejects: '.' and '=' become '_' and
+    leading/trailing spaces are removed. Case, accents, spaces, '-', '/' etc. are kept as-is."""
+    key = re.sub(r"[.=]", "_", str(name).strip())
     if len(key) > MAX_TAG_LEN:
         digest = hashlib.sha1(key.encode()).hexdigest()[:8]
         key = f"{key[: MAX_TAG_LEN - 9]}_{digest}"
@@ -122,21 +117,16 @@ def derive_tags(obj: dict, cfg: TagsConfig) -> tuple[list[DesiredTag], list[tupl
             if aliases:
                 candidates.extend(DesiredTag(a["key"], clean_tag_value(a["value"]), f"classification:{name}") for a in aliases)
             else:
-                candidates.append(DesiredTag(make_tag_key(cfg.prefix, "class", name), clean_tag_value(name), f"classification:{name}"))
+                candidates.append(DesiredTag(tag_key(name), "", f"classification:{name}"))
 
+    # Termos e labels levam o nome exato do Purview; a origem fica registrada em `source`.
     if cfg.terms:
         for t in obj.get("terms", []):
-            candidates.append(
-                DesiredTag(
-                    make_tag_key(cfg.prefix, "term", t["name"]),
-                    clean_tag_value(t.get("qualified_name") or t["name"]),
-                    f"term:{t.get('qualified_name') or t['name']}",
-                )
-            )
+            candidates.append(DesiredTag(tag_key(t["name"]), "", f"term:{t.get('qualified_name') or t['name']}"))
 
     if cfg.labels:
         for label in obj.get("labels", []):
-            candidates.append(DesiredTag(make_tag_key(cfg.prefix, "label", label), "", f"label:{label}"))
+            candidates.append(DesiredTag(tag_key(label), "", f"label:{label}"))
 
     if cfg.managed_attributes:
         for group, attrs in (obj.get("business_attributes") or {}).items():
@@ -144,9 +134,7 @@ def derive_tags(obj: dict, cfg: TagsConfig) -> tuple[list[DesiredTag], list[tupl
                 if value is None or value == "" or value == []:
                     continue
                 text = ", ".join(map(str, value)) if isinstance(value, list) else str(value)
-                candidates.append(
-                    DesiredTag(make_tag_key(cfg.prefix, "ma", f"{group}_{attr}"), clean_tag_value(text), f"managed_attribute:{group}.{attr}")
-                )
+                candidates.append(DesiredTag(tag_key(f"{group}.{attr}"), clean_tag_value(text), f"managed_attribute:{group}.{attr}"))
 
     tags: dict[str, DesiredTag] = {}
     collisions: list[tuple[DesiredTag, str]] = []

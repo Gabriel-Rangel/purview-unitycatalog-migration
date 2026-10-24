@@ -99,7 +99,6 @@ class CommentsConfig:
 
 @dataclass
 class TagsConfig:
-    prefix: str = "purview_"
     classifications: bool = True
     terms: bool = True
     labels: bool = True

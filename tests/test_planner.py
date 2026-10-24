@@ -80,7 +80,7 @@ def test_demo_scenario(cfg, assets):
     assert s["status"] == "CONFLICT" and s["current_value"] == "interna"
     # Termo de glossário com acento.
     [t] = find(rows, uc_object="p2uc_demo.sales.factsales", action="SET_TABLE_TAG")
-    assert (t["tag_key"], t["desired_value"]) == ("purview_term_receita_liquida", "Receita Líquida@Glossary")
+    assert (t["tag_key"], t["desired_value"], t["source"]) == ("Receita Líquida", "", "term:Receita Líquida@Glossary")
     # Override de tabela renomeada e tabelas sem par nos dois sentidos.
     assert find(rows, uc_object="p2uc_demo.web.clickstream_events", tag_key="class.ip_address", status="PLANNED")
     assert find(rows, action="NO_MATCH", reason="UC_TABLE_NOT_FOUND", uc_object="p2uc_demo.hr.legacypayroll")
@@ -182,7 +182,9 @@ def test_tag_limit(cfg, assets):
         ("pii", "EMAIL", None),
         ("pii", "contato", "GOVERNED_TAG_VALUE_NOT_ALLOWED"),
         ("bad.key", "v", "INVALID_TAG_KEY"),
-        ("purview_label_ok", "", None),
+        ("a=b", "v", "INVALID_TAG_KEY"),
+        ("Receita Líquida", "", None),
+        ("Cliente/Prospect - Ativo", "", None),
     ],
 )
 def test_tag_validation(key, value, problem):

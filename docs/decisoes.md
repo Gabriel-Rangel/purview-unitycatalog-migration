@@ -77,12 +77,12 @@ Cada decisão traz o contexto, a escolha, o porquê e o que foi descartado. Use 
 
 - **Preset `databricks_class`:** as classificações nativas da Microsoft viram as governed tags de sistema usadas pelo **Databricks Data Classification**, por exemplo `MICROSOFT.PERSONAL.EMAIL → class.email_address` e `MICROSOFT.GOVERNMENT.BRAZIL.CPF_NUMBER → class.br_cpf`.
   - **Por quê:** a coluna migrada fica idêntica a uma classificada pelo próprio Databricks. Políticas ABAC, filtros do Catalog Explorer e relatórios escritos para `class.*` passam a valer para os dados migrados.
-- **Classificações sem equivalente** (customizadas etc.): `purview_class_<slug> = '<nome original>'`.
-- **Termos de glossário:** `purview_term_<slug> = 'Termo@Glossário'`.
-- **Labels:** `purview_label_<slug>`.
+- **Classificações sem equivalente, termos de glossário e labels:** viram tags com o **nome exato do Purview**, sem prefixo (`Receita Líquida`, `camada_gold`). Só muda o que o UC rejeita: `.` e `=` viram `_` (`LGPD.DADOS_PESSOAIS` → `LGPD_DADOS_PESSOAIS`).
+  - **Por que sem prefixo:** a tag deve ser reconhecível por quem já usa o Purview. A origem não precisa estar no nome: ela fica em `sync_actions.source`.
+  - **Colisões:** um termo chamado `pii`, por exemplo, colidiria com uma governed tag existente. Isso é detectado no plano e vira `SKIPPED`.
 - **Por que não uma chave única `Purview = <classificação>`, como no artigo:** uma tabela ou coluna aceita uma só tag por chave, então a 2ª classificação sobrescreveria a 1ª. Uma tag por conceito também permite `has_tag(...)` no ABAC.
 - **Validação no plano:**
-  - Chaves com `. , - = / :` só são aceitas se forem governed tags existentes.
+  - Chaves com `.` ou `=` só são aceitas se forem governed tags existentes. Na prática, testado no UC, só esses dois caracteres são rejeitados; espaços, acentos, `-` e `/` são aceitos.
   - Governed tags com lista de valores exigem um valor da lista; as sem lista (`class.*`) só aceitam valor vazio.
   - O limite de 50 tags por objeto e 1000 tags de coluna por tabela é respeitado.
 

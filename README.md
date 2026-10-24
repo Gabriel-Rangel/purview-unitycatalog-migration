@@ -9,9 +9,9 @@ copiamos:
 | No Purview | No Unity Catalog |
 |---|---|
 | Descrição da tabela e das colunas (`userDescription`, ou `description` como fallback; HTML convertido para markdown) | `COMMENT` da tabela e das colunas |
-| Classificações (`MICROSOFT.PERSONAL.EMAIL`, `MICROSOFT.GOVERNMENT.BRAZIL.CPF_NUMBER`, customizadas…) | Tags. Por padrão, as classificações nativas viram as **governed tags `class.*`** do Databricks Data Classification (`class.email_address`, `class.br_cpf`…) |
-| Termos de glossário | Tags `purview_term_<termo> = 'Termo@Glossário'` |
-| Labels | Tags `purview_label_<label>` |
+| Classificações (`MICROSOFT.PERSONAL.EMAIL`, `MICROSOFT.GOVERNMENT.BRAZIL.CPF_NUMBER`, customizadas…) | Tags. Por padrão, as classificações nativas viram as **governed tags `class.*`** do Databricks Data Classification (`class.email_address`, `class.br_cpf`…); as customizadas mantêm o nome do Purview (`LGPD.DADOS_PESSOAIS` → `LGPD_DADOS_PESSOAIS`) |
+| Termos de glossário | Tags com o **nome exato** do termo (`Receita Líquida`) |
+| Labels | Tags com o **nome exato** do label (`camada_gold`) |
 
 Tudo roda em **notebooks Databricks** (serverless), sem secrets, e com **plano revisável antes de qualquer alteração**.
 

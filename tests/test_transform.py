@@ -1,5 +1,5 @@
 from purview2uc.config import CommentsConfig, TagsConfig
-from purview2uc.transform import derive_tags, html_to_text, make_tag_key, normalize_comment, pick_description, slugify
+from purview2uc.transform import derive_tags, html_to_text, normalize_comment, pick_description, tag_key
 
 
 def test_html_from_purview_rich_text_editor_becomes_markdown():
@@ -24,26 +24,33 @@ def test_pick_description_prefers_user_description_then_falls_back():
     assert pick_description({}, cfg) == ("", None)
 
 
-def test_slug_and_tag_key_respect_uc_rules():
-    assert slugify("Receita Líquida") == "receita_liquida"
-    assert slugify("MICROSOFT.PERSONAL.EMAIL") == "microsoft_personal_email"
-    key = make_tag_key("purview_", "term", "x" * 400)
-    assert len(key) == 255 and key.startswith("purview_term_x")
+def test_tag_key_keeps_purview_name_and_changes_only_what_uc_rejects():
+    # Validado no UC: só '.' e '=' são rejeitados em chaves, além de espaços nas pontas.
+    assert tag_key("Receita Líquida") == "Receita Líquida"
+    assert tag_key("Cliente/Prospect - Ativo") == "Cliente/Prospect - Ativo"
+    assert tag_key("  camada_gold ") == "camada_gold"
+    assert tag_key("LGPD.DADOS_PESSOAIS") == "LGPD_DADOS_PESSOAIS"
+    assert tag_key("a=b") == "a_b"
+    key = tag_key("x" * 400)
+    assert len(key) == 255 and key.startswith("xxx")
 
 
-def test_derive_tags_default_keys_and_values():
+def test_derive_tags_use_exact_purview_names_without_prefix():
     obj = {
         "classifications": [{"type_name": "LGPD.DADOS_PESSOAIS"}],
-        "terms": [{"name": "Cliente", "qualified_name": "Cliente@Glossary"}],
+        "terms": [{"name": "Receita Líquida", "qualified_name": "Receita Líquida@Glossary"}],
         "labels": ["camada_gold"],
     }
     tags, collisions = derive_tags(obj, TagsConfig())
-    assert {(t.key, t.value) for t in tags} == {
-        ("purview_class_lgpd_dados_pessoais", "LGPD.DADOS_PESSOAIS"),
-        ("purview_term_cliente", "Cliente@Glossary"),
-        ("purview_label_camada_gold", ""),
-    }
+    assert {(t.key, t.value) for t in tags} == {("LGPD_DADOS_PESSOAIS", ""), ("Receita Líquida", ""), ("camada_gold", "")}
+    # A origem exata no Purview fica registrada (vai para sync_actions.source).
+    assert {t.source for t in tags} == {"classification:LGPD.DADOS_PESSOAIS", "term:Receita Líquida@Glossary", "label:camada_gold"}
     assert collisions == []
+
+
+def test_term_and_label_with_same_name_become_one_tag():
+    tags, collisions = derive_tags({"terms": [{"name": "Cliente"}], "labels": ["Cliente"]}, TagsConfig())
+    assert [(t.key, t.value) for t in tags] == [("Cliente", "")] and collisions == []
 
 
 def test_preset_and_multi_tag_alias():

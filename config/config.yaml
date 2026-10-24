@@ -47,7 +47,8 @@ comments:
   on_conflict: fill_empty                 # fill_empty: não sobrescreve comentário existente (vira CONFLICT) | overwrite
 
 tags:
-  prefix: purview_                        # tags sem alias: purview_class_*, purview_term_*, purview_label_*
+  # Termos, labels e classificações sem alias viram tags com o nome exato do Purview
+  # (o UC só não aceita '.' e '=' em chaves: viram '_'). A origem fica em sync_actions.source.
   classifications: true
   terms: true
   labels: true

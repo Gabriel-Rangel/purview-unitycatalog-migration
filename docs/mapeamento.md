@@ -67,7 +67,6 @@ comments:
 
 ```yaml
 tags:
-  prefix: purview_
   classifications: true
   terms: true
   labels: true
@@ -84,14 +83,19 @@ tags:
 
 ### Tags geradas
 
-| Origem | Sem alias | Exemplo |
-|---|---|---|
-| Classificação | `purview_class_<slug>` = nome original | `purview_class_lgpd_dados_pessoais = 'LGPD.DADOS_PESSOAIS'` |
-| Termo de glossário | `purview_term_<slug>` = `Termo@Glossário` | `purview_term_receita_liquida = 'Receita Líquida@Glossary'` |
-| Label | `purview_label_<slug>` = `''` | `purview_label_camada_gold` |
-| Managed attribute (se ligado) | `purview_ma_<grupo>_<atributo>` = valor | `purview_ma_negocio_dono = 'Vendas'` |
+As tags usam o **nome do Purview, sem prefixo**:
 
-- **Slug:** sem acentos, minúsculo, só `[a-z0-9_]`. Chaves com mais de 255 caracteres são truncadas e recebem um hash como sufixo.
+| Origem | Tag no UC (chave, valor vazio) | Exemplo |
+|---|---|---|
+| Classificação nativa (com preset) | governed tag `class.*` | `MICROSOFT.PERSONAL.EMAIL` → `class.email_address` |
+| Classificação sem alias (customizada etc.) | nome da classificação | `LGPD.DADOS_PESSOAIS` → `LGPD_DADOS_PESSOAIS` |
+| Termo de glossário | nome do termo | `Receita Líquida` → `Receita Líquida` |
+| Label | nome do label | `camada_gold` → `camada_gold` |
+| Managed attribute (se ligado) | `<grupo>_<atributo>` = valor | `Negocio_Dono = 'Vendas'` |
+
+- **O que muda no nome:** só o que o UC rejeita. `.` e `=` viram `_`, e os espaços nas pontas são removidos. Maiúsculas, acentos, espaços, `-` e `/` são mantidos. Chaves com mais de 255 caracteres são truncadas e recebem um hash como sufixo.
+- **Origem:** o nome exato no Purview (ex.: `term:Receita Líquida@Glossary`) fica registrado na coluna `source` de `sync_actions`, para auditoria.
+- **Mesmo nome, origens diferentes:** um termo e um label com o mesmo nome viram uma única tag.
 
 ### Preset `databricks_class`
 
@@ -112,7 +116,7 @@ Mapeia classificações nativas da Microsoft para as governed tags de sistema do
 | `MICROSOFT.GOVERNMENT.BRAZIL.NATIONAL_ID_CARD` | `class.br_rg` |
 | `MICROSOFT.GOVERNMENT.US.SOCIAL_SECURITY_NUMBER` | `class.us_ssn` |
 
-- **Sem equivalência clara:** a classificação recebe a tag padrão `purview_class_*`. Mapeie você mesmo em `aliases`, por exemplo uma classificação customizada de salário → `class.compensation`.
+- **Sem equivalência clara:** a classificação recebe o próprio nome (com `.` → `_`). Mapeie você mesmo em `aliases`, por exemplo uma classificação customizada de salário → `class.compensation`.
 - **Taxonomia própria:** se a empresa tem governed tags próprias (ex.: `pii` com valores `EMAIL`/`SSN`), use `aliases` para gerar as duas tags, por exemplo `[{key: class.email_address}, {key: pii, value: EMAIL}]`.
 
 ### Validações feitas já no plano (`status = SKIPPED`)
@@ -121,7 +125,7 @@ Mapeia classificações nativas da Microsoft para as governed tags de sistema do
 |---|---|
 | `GOVERNED_TAG_VALUE_NOT_ALLOWED` | Governed tag com lista de valores e o valor não está na lista |
 | `GOVERNED_TAG_IS_KEY_ONLY` | Governed tag sem lista de valores (ex.: `class.*`) recebendo valor |
-| `INVALID_TAG_KEY` | Chave com `. , - = / :` que não é uma governed tag existente |
+| `INVALID_TAG_KEY` | Chave com `.` ou `=` que não é uma governed tag existente (só acontece via `aliases`) |
 | `TAG_LIMIT_REACHED` | Excederia 50 tags no objeto ou 1000 tags de coluna na tabela |
 | `KEY_COLLISION …` | Duas origens gerariam a mesma chave com valores diferentes (mantém a primeira) |
 

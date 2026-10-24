@@ -4,7 +4,7 @@
 Databricks Data Classification (class.*). Columns migrated from Purview then look exactly like
 columns classified by Databricks itself, so ABAC policies and Catalog Explorer filters written for
 class.* work on both. Only clear one-to-one equivalences are listed; anything else falls back to
-the default purview_class_<name> tag (or can be mapped in tags.aliases).
+a tag with the classification name itself (or can be mapped in tags.aliases).
 """
 
 DATABRICKS_CLASS = {
