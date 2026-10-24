@@ -1,0 +1,3 @@
+# Exceções ao de-para das regras. uc_full_name vazio = ignorar o asset do Purview.
+purview_qualified_name,uc_full_name
+mssql://p2ucdemo-ondemand.sql.azuresynapse.net/lakehouse/dbo/web_events,p2uc_demo.web.clickstream_events

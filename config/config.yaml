@@ -1,0 +1,70 @@
+# Configuração da migração de metadados Purview -> Unity Catalog.
+# Os caminhos relativos (ex.: overrides_csv) são relativos a este arquivo.
+# Detalhes de cada opção: docs/mapeamento.md
+
+purview:
+  account: gabrielrangel-purview          # nome da conta (ou endpoint https://<conta>.purview.azure.com)
+  entity_types:                           # tipos de asset a migrar (veja os existentes no notebook 00_inventario)
+    - azure_synapse_dedicated_sql_table
+    - azure_synapse_dedicated_sql_view
+    - azure_synapse_serverless_sql_table
+    - azure_sql_dw_table
+  collection_ids: []                      # vazio = todas as collections que a identidade enxerga
+  include_propagated_classifications: false
+
+auth:
+  method: service_credential              # service_credential (recomendado) | secret_scope
+  service_credential: purview-reader      # nome da service credential do UC (managed identity com Data Reader)
+  # secret_scope: purview-sp              # se method=secret_scope: chaves tenant-id, client-id, client-secret
+
+matching:
+  rules:
+    # Synapse dedicated SQL pool: mssql://<workspace>.sql.azuresynapse.net/<pool>/<schema>/<tabela>
+    - entity_types: [azure_synapse_dedicated_sql_table, azure_synapse_dedicated_sql_view]
+      purview_qn_regex: '^mssql://(?P<ws>[^/]+)\.sql\.azuresynapse\.net/(?P<db>[^/]+)/(?P<schema>[^/]+)/(?P<table>[^/]+)$'
+      uc_target: '{db}.{schema}.{table}'
+      maps:
+        db: {sqlpool01: p2uc_demo}        # pool do Synapse -> catálogo do UC
+      normalize: lower
+    # Synapse serverless: mssql://<workspace>-ondemand.sql.azuresynapse.net/<db>/<schema>/<tabela>
+    - entity_types: [azure_synapse_serverless_sql_table]
+      purview_qn_regex: '^mssql://(?P<ws>[^/]+)-ondemand\.sql\.azuresynapse\.net/(?P<db>[^/]+)/(?P<schema>[^/]+)/(?P<table>[^/]+)$'
+      uc_target: '{db}.{schema}.{table}'
+      maps:
+        db: {lakehouse: p2uc_demo}
+        schema: {dbo: web}
+      normalize: lower
+  overrides_csv: table_overrides.csv      # exceções (tabelas renomeadas na migração ou a ignorar)
+
+unity_catalog:
+  catalogs: [p2uc_demo]                   # onde procurar tabelas "só no UC" (sem asset no Purview)
+  exclude_schemas: [information_schema, purview_migration]
+
+comments:
+  table_comments: true
+  column_comments: true
+  source_priority: [userDescription, description]   # curada no portal > vinda do scan
+  on_conflict: fill_empty                 # fill_empty: não sobrescreve comentário existente (vira CONFLICT) | overwrite
+
+tags:
+  prefix: purview_                        # tags sem alias: purview_class_*, purview_term_*, purview_label_*
+  classifications: true
+  terms: true
+  labels: true
+  managed_attributes: false
+  include: ["*"]                          # padrões (fnmatch) de classificações a migrar
+  exclude: []                             # ex.: ["MICROSOFT.PERSONAL.AGE"] para descartar falsos positivos
+  # Mapeia classificações nativas do Purview para as governed tags class.* do Databricks Data Classification.
+  aliases_preset: databricks_class
+  aliases:                                # sobrepõe/estende o preset; aceita uma tag ou uma lista
+    CONFIDENCIAL.SALARIO:
+      - {key: class.compensation, value: ""}
+      - {key: sensibilidade, value: restrita}
+  on_conflict: skip                       # skip: tag existente com outro valor vira CONFLICT | overwrite
+
+control:
+  catalog: p2uc_demo                      # onde ficam as tabelas de controle (plano + auditoria)
+  schema: purview_migration
+
+execution:
+  max_workers: 8                          # tabelas processadas em paralelo no apply

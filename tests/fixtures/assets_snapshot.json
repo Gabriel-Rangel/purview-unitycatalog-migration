@@ -1,0 +1,619 @@
+[
+ {
+  "guid": "67c6bf31-41a4-4261-906c-fdf6f6f60000",
+  "type_name": "azure_synapse_serverless_sql_table",
+  "name": "web_events",
+  "qualified_name": "mssql://p2ucdemo-ondemand.sql.azuresynapse.net/lakehouse/dbo/web_events",
+  "userDescription": "Eventos de navegação do site (clickstream), particionados por dia.",
+  "description": null,
+  "classifications": [],
+  "labels": [],
+  "terms": [],
+  "business_attributes": {},
+  "columns": [
+   {
+    "guid": "67c6bf31-41a4-4261-906c-fdf6f6f60002",
+    "type_name": "azure_synapse_serverless_sql_column",
+    "name": "event_id",
+    "qualified_name": "mssql://p2ucdemo-ondemand.sql.azuresynapse.net/lakehouse/dbo/web_events#event_id",
+    "userDescription": "Identificador do evento.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "varchar"
+   },
+   {
+    "guid": "67c6bf31-41a4-4261-906c-fdf6f6f60005",
+    "type_name": "azure_synapse_serverless_sql_column",
+    "name": "event_ts",
+    "qualified_name": "mssql://p2ucdemo-ondemand.sql.azuresynapse.net/lakehouse/dbo/web_events#event_ts",
+    "userDescription": "Momento do evento (UTC).",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "datetime2"
+   },
+   {
+    "guid": "67c6bf31-41a4-4261-906c-fdf6f6f60004",
+    "type_name": "azure_synapse_serverless_sql_column",
+    "name": "ip_address",
+    "qualified_name": "mssql://p2ucdemo-ondemand.sql.azuresynapse.net/lakehouse/dbo/web_events#ip_address",
+    "userDescription": "IP de origem.",
+    "description": null,
+    "classifications": [
+     {
+      "type_name": "MICROSOFT.PERSONAL.IPADDRESS",
+      "propagated": false
+     }
+    ],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "varchar"
+   },
+   {
+    "guid": "67c6bf31-41a4-4261-906c-fdf6f6f60001",
+    "type_name": "azure_synapse_serverless_sql_column",
+    "name": "page_url",
+    "qualified_name": "mssql://p2ucdemo-ondemand.sql.azuresynapse.net/lakehouse/dbo/web_events#page_url",
+    "userDescription": "URL visitada.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "varchar"
+   },
+   {
+    "guid": "67c6bf31-41a4-4261-906c-fdf6f6f60003",
+    "type_name": "azure_synapse_serverless_sql_column",
+    "name": "session_id",
+    "qualified_name": "mssql://p2ucdemo-ondemand.sql.azuresynapse.net/lakehouse/dbo/web_events#session_id",
+    "userDescription": "Sessão do navegador.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "varchar"
+   }
+  ]
+ },
+ {
+  "guid": "df1e9b42-b2d4-493f-b11a-b4f6f6f60000",
+  "type_name": "azure_synapse_dedicated_sql_table",
+  "name": "Department",
+  "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/Department",
+  "userDescription": "Departamentos da empresa.",
+  "description": null,
+  "classifications": [],
+  "labels": [],
+  "terms": [],
+  "business_attributes": {},
+  "columns": [
+   {
+    "guid": "df1e9b42-b2d4-493f-b11a-b4f6f6f60001",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "DepartmentID",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/Department#DepartmentID",
+    "userDescription": "Identificador do departamento.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "int"
+   },
+   {
+    "guid": "df1e9b42-b2d4-493f-b11a-b4f6f6f60002",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "DepartmentName",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/Department#DepartmentName",
+    "userDescription": "Nome do departamento.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "nvarchar"
+   }
+  ]
+ },
+ {
+  "guid": "1138053e-ed18-4380-b5e7-f4f6f6f60000",
+  "type_name": "azure_synapse_dedicated_sql_table",
+  "name": "Employee",
+  "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/Employee",
+  "userDescription": "Funcionários ativos e desligados nos últimos 5 anos. Acesso restrito ao RH.",
+  "description": null,
+  "classifications": [
+   {
+    "type_name": "LGPD.DADOS_PESSOAIS",
+    "propagated": false
+   }
+  ],
+  "labels": [
+   "restrito"
+  ],
+  "terms": [],
+  "business_attributes": {},
+  "columns": [
+   {
+    "guid": "1138053e-ed18-4380-b5e7-f4f6f6f60006",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "BadgeLegacy",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/Employee#BadgeLegacy",
+    "userDescription": "Número do crachá no sistema antigo (não migrado).",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "varchar"
+   },
+   {
+    "guid": "1138053e-ed18-4380-b5e7-f4f6f6f60003",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "Email",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/Employee#Email",
+    "userDescription": "E-mail corporativo.",
+    "description": null,
+    "classifications": [
+     {
+      "type_name": "MICROSOFT.PERSONAL.EMAIL",
+      "propagated": false
+     }
+    ],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "nvarchar"
+   },
+   {
+    "guid": "1138053e-ed18-4380-b5e7-f4f6f6f60001",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "EmployeeID",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/Employee#EmployeeID",
+    "userDescription": "Matrícula do funcionário.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "int"
+   },
+   {
+    "guid": "1138053e-ed18-4380-b5e7-f4f6f6f60005",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "HireDate",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/Employee#HireDate",
+    "userDescription": "Data de admissão.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "date"
+   },
+   {
+    "guid": "1138053e-ed18-4380-b5e7-f4f6f6f60002",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "Name",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/Employee#Name",
+    "userDescription": "Nome completo.",
+    "description": null,
+    "classifications": [
+     {
+      "type_name": "MICROSOFT.PERSONAL.NAME",
+      "propagated": false
+     }
+    ],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "nvarchar"
+   },
+   {
+    "guid": "1138053e-ed18-4380-b5e7-f4f6f6f60004",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "Salary",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/Employee#Salary",
+    "userDescription": "Salário base mensal (R$).",
+    "description": null,
+    "classifications": [
+     {
+      "type_name": "CONFIDENCIAL.SALARIO",
+      "propagated": false
+     }
+    ],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "decimal"
+   }
+  ]
+ },
+ {
+  "guid": "24346c5e-13f2-4f37-b7cf-1af6f6f60000",
+  "type_name": "azure_synapse_dedicated_sql_table",
+  "name": "LegacyPayroll",
+  "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/LegacyPayroll",
+  "userDescription": "Folha de pagamento do sistema legado (descontinuada).",
+  "description": null,
+  "classifications": [],
+  "labels": [],
+  "terms": [],
+  "business_attributes": {},
+  "columns": [
+   {
+    "guid": "24346c5e-13f2-4f37-b7cf-1af6f6f60001",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "PayrollID",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/LegacyPayroll#PayrollID",
+    "userDescription": "Identificador da folha.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "int"
+   }
+  ]
+ },
+ {
+  "guid": "8ce2d3a9-f859-428f-8b2c-5ef6f6f60000",
+  "type_name": "azure_synapse_dedicated_sql_view",
+  "name": "vw_EmployeeDirectory",
+  "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/vw_EmployeeDirectory",
+  "userDescription": "Diretório de funcionários sem dados sensíveis.",
+  "description": null,
+  "classifications": [],
+  "labels": [],
+  "terms": [],
+  "business_attributes": {},
+  "columns": [
+   {
+    "guid": "8ce2d3a9-f859-428f-8b2c-5ef6f6f60003",
+    "type_name": "azure_synapse_dedicated_sql_view_column",
+    "name": "DepartmentName",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/vw_EmployeeDirectory#DepartmentName",
+    "userDescription": "Nome do departamento.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "nvarchar"
+   },
+   {
+    "guid": "8ce2d3a9-f859-428f-8b2c-5ef6f6f60001",
+    "type_name": "azure_synapse_dedicated_sql_view_column",
+    "name": "EmployeeID",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/vw_EmployeeDirectory#EmployeeID",
+    "userDescription": "Matrícula do funcionário.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "int"
+   },
+   {
+    "guid": "8ce2d3a9-f859-428f-8b2c-5ef6f6f60002",
+    "type_name": "azure_synapse_dedicated_sql_view_column",
+    "name": "Name",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/hr/vw_EmployeeDirectory#Name",
+    "userDescription": "Nome completo.",
+    "description": null,
+    "classifications": [
+     {
+      "type_name": "MICROSOFT.PERSONAL.NAME",
+      "propagated": false
+     }
+    ],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "nvarchar"
+   }
+  ]
+ },
+ {
+  "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60000",
+  "type_name": "azure_synapse_dedicated_sql_table",
+  "name": "DimCustomer",
+  "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer",
+  "userDescription": "<p>Cadastro <strong>mestre</strong> de clientes ativos.</p><ul><li>Fonte: CRM Dynamics</li><li>Atualização: diária às 02h</li></ul>",
+  "description": null,
+  "classifications": [
+   {
+    "type_name": "LGPD.DADOS_PESSOAIS",
+    "propagated": false
+   }
+  ],
+  "labels": [
+   "camada_gold",
+   "lgpd"
+  ],
+  "terms": [
+   {
+    "guid": "1af11e72-dd6e-4172-859b-b83bef5bc49a",
+    "name": "Cliente",
+    "qualified_name": "Cliente@Glossary"
+   }
+  ],
+  "business_attributes": {},
+  "columns": [
+   {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60005",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "BirthDate",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#BirthDate",
+    "userDescription": "Data de nascimento.",
+    "description": null,
+    "classifications": [
+     {
+      "type_name": "MICROSOFT.PERSONAL.DATE_OF_BIRTH",
+      "propagated": false
+     }
+    ],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "date"
+   },
+   {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60006",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "City",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#City",
+    "userDescription": "Cidade de residência.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "nvarchar"
+   },
+   {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60004",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "CPF",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#CPF",
+    "userDescription": "CPF do titular, sem pontuação.",
+    "description": null,
+    "classifications": [
+     {
+      "type_name": "MICROSOFT.GOVERNMENT.BRAZIL.CPF_NUMBER",
+      "propagated": false
+     }
+    ],
+    "labels": [],
+    "terms": [
+     {
+      "guid": "7f0a9794-5bf5-431f-b9bc-4af2fee14280",
+      "name": "CPF",
+      "qualified_name": "CPF@Glossary"
+     }
+    ],
+    "business_attributes": {},
+    "data_type": "char"
+   },
+   {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60001",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "CustomerID",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#CustomerID",
+    "userDescription": "Identificador único do cliente (chave substituta).",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "int"
+   },
+   {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60003",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "Email",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#Email",
+    "userDescription": "E-mail principal do cliente.",
+    "description": null,
+    "classifications": [
+     {
+      "type_name": "MICROSOFT.PERSONAL.EMAIL",
+      "propagated": false
+     }
+    ],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "nvarchar"
+   },
+   {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60002",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "FullName",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#FullName",
+    "userDescription": "Nome completo do cliente.",
+    "description": null,
+    "classifications": [
+     {
+      "type_name": "MICROSOFT.PERSONAL.NAME",
+      "propagated": false
+     }
+    ],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "nvarchar"
+   }
+  ]
+ },
+ {
+  "guid": "97afdf8c-dc58-4c10-bd43-e6f6f6f60000",
+  "type_name": "azure_synapse_dedicated_sql_table",
+  "name": "DimProduct",
+  "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimProduct",
+  "userDescription": null,
+  "description": "Catálogo de produtos importado do ERP.",
+  "classifications": [],
+  "labels": [],
+  "terms": [],
+  "business_attributes": {},
+  "columns": [
+   {
+    "guid": "97afdf8c-dc58-4c10-bd43-e6f6f6f60003",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "Category",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimProduct#Category",
+    "userDescription": "Categoria do produto.\nValores possíveis:\n  - Eletrônicos\n  - Casa",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "nvarchar"
+   },
+   {
+    "guid": "97afdf8c-dc58-4c10-bd43-e6f6f6f60001",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "ProductID",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimProduct#ProductID",
+    "userDescription": "Identificador do produto.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "int"
+   },
+   {
+    "guid": "97afdf8c-dc58-4c10-bd43-e6f6f6f60002",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "ProductName",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimProduct#ProductName",
+    "userDescription": "Nome comercial do produto.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "nvarchar"
+   }
+  ]
+ },
+ {
+  "guid": "51ddf954-bc2d-48dc-b8e2-9cf6f6f60000",
+  "type_name": "azure_synapse_dedicated_sql_table",
+  "name": "FactSales",
+  "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/FactSales",
+  "userDescription": "Vendas consolidadas por item (fonte: 'ERP\\SAP', export em C:\\export\\vendas). Valores em R$.",
+  "description": null,
+  "classifications": [],
+  "labels": [],
+  "terms": [
+   {
+    "guid": "8ca19c3d-8f96-40c1-a1bf-316d131cd9a9",
+    "name": "Receita Líquida",
+    "qualified_name": "Receita Líquida@Glossary"
+   }
+  ],
+  "business_attributes": {},
+  "columns": [
+   {
+    "guid": "51ddf954-bc2d-48dc-b8e2-9cf6f6f60004",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "CardNumber",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/FactSales#CardNumber",
+    "userDescription": "Número mascarado do cartão usado no pagamento.",
+    "description": null,
+    "classifications": [
+     {
+      "type_name": "MICROSOFT.FINANCIAL.CREDIT_CARD_NUMBER",
+      "propagated": false
+     }
+    ],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "varchar"
+   },
+   {
+    "guid": "51ddf954-bc2d-48dc-b8e2-9cf6f6f60006",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "CustomerID",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/FactSales#CustomerID",
+    "userDescription": "FK para DimCustomer.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "int"
+   },
+   {
+    "guid": "51ddf954-bc2d-48dc-b8e2-9cf6f6f60003",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "NetAmount",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/FactSales#NetAmount",
+    "userDescription": "Valor líquido em R$, já descontados impostos e devoluções.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [
+     {
+      "guid": "8ca19c3d-8f96-40c1-a1bf-316d131cd9a9",
+      "name": "Receita Líquida",
+      "qualified_name": "Receita Líquida@Glossary"
+     }
+    ],
+    "business_attributes": {},
+    "data_type": "decimal"
+   },
+   {
+    "guid": "51ddf954-bc2d-48dc-b8e2-9cf6f6f60001",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "ProductID",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/FactSales#ProductID",
+    "userDescription": "FK para DimProduct.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "int"
+   },
+   {
+    "guid": "51ddf954-bc2d-48dc-b8e2-9cf6f6f60002",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "SaleDate",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/FactSales#SaleDate",
+    "userDescription": "Data da venda (fuso America/Sao_Paulo).",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "date"
+   },
+   {
+    "guid": "51ddf954-bc2d-48dc-b8e2-9cf6f6f60005",
+    "type_name": "azure_synapse_dedicated_sql_column",
+    "name": "SaleID",
+    "qualified_name": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/FactSales#SaleID",
+    "userDescription": "Identificador da venda.",
+    "description": null,
+    "classifications": [],
+    "labels": [],
+    "terms": [],
+    "business_attributes": {},
+    "data_type": "bigint"
+   }
+  ]
+ }
+]

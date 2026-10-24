@@ -1,0 +1,316 @@
+{
+ "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer": {
+  "entity": {
+   "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60000",
+   "typeName": "azure_synapse_dedicated_sql_table",
+   "status": "ACTIVE",
+   "attributes": {
+    "name": "DimCustomer",
+    "qualifiedName": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer",
+    "userDescription": "<p>Cadastro <strong>mestre</strong> de clientes ativos.</p><ul><li>Fonte: CRM Dynamics</li><li>Atualização: diária às 02h</li></ul>",
+    "description": null
+   },
+   "classifications": [
+    {
+     "typeName": "LGPD.DADOS_PESSOAIS",
+     "entityGuid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60000",
+     "entityStatus": "ACTIVE",
+     "propagate": null
+    }
+   ],
+   "labels": [
+    "camada_gold",
+    "lgpd"
+   ],
+   "relationshipAttributes": {
+    "columns": [
+     {
+      "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60001",
+      "typeName": "azure_synapse_dedicated_sql_column",
+      "displayText": "CustomerID",
+      "relationshipStatus": "ACTIVE",
+      "entityStatus": "ACTIVE"
+     },
+     {
+      "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60002",
+      "typeName": "azure_synapse_dedicated_sql_column",
+      "displayText": "FullName",
+      "relationshipStatus": "ACTIVE",
+      "entityStatus": "ACTIVE"
+     },
+     {
+      "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60003",
+      "typeName": "azure_synapse_dedicated_sql_column",
+      "displayText": "Email",
+      "relationshipStatus": "ACTIVE",
+      "entityStatus": "ACTIVE"
+     },
+     {
+      "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60006",
+      "typeName": "azure_synapse_dedicated_sql_column",
+      "displayText": "City",
+      "relationshipStatus": "ACTIVE",
+      "entityStatus": "ACTIVE"
+     },
+     {
+      "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60005",
+      "typeName": "azure_synapse_dedicated_sql_column",
+      "displayText": "BirthDate",
+      "relationshipStatus": "ACTIVE",
+      "entityStatus": "ACTIVE"
+     },
+     {
+      "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60004",
+      "typeName": "azure_synapse_dedicated_sql_column",
+      "displayText": "CPF",
+      "relationshipStatus": "ACTIVE",
+      "entityStatus": "ACTIVE"
+     }
+    ],
+    "meanings": [
+     {
+      "guid": "1af11e72-dd6e-4172-859b-b83bef5bc49a",
+      "typeName": "AtlasGlossaryTerm",
+      "displayText": "Cliente",
+      "relationshipStatus": "ACTIVE",
+      "entityStatus": "ACTIVE"
+     }
+    ]
+   }
+  },
+  "columns": {
+   "2a0695d6-3ab4-4c53-86b8-f8f6f6f60001": {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60001",
+    "typeName": "azure_synapse_dedicated_sql_column",
+    "status": "ACTIVE",
+    "attributes": {
+     "name": "CustomerID",
+     "qualifiedName": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#CustomerID",
+     "userDescription": "Identificador único do cliente (chave substituta).",
+     "description": null,
+     "data_type": "int"
+    },
+    "classifications": [],
+    "labels": [],
+    "relationshipAttributes": {
+     "meanings": []
+    }
+   },
+   "2a0695d6-3ab4-4c53-86b8-f8f6f6f60002": {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60002",
+    "typeName": "azure_synapse_dedicated_sql_column",
+    "status": "ACTIVE",
+    "attributes": {
+     "name": "FullName",
+     "qualifiedName": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#FullName",
+     "userDescription": "Nome completo do cliente.",
+     "description": null,
+     "data_type": "nvarchar"
+    },
+    "classifications": [
+     {
+      "typeName": "MICROSOFT.PERSONAL.NAME",
+      "entityGuid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60002",
+      "entityStatus": "ACTIVE",
+      "propagate": null
+     }
+    ],
+    "labels": [],
+    "relationshipAttributes": {
+     "meanings": []
+    }
+   },
+   "2a0695d6-3ab4-4c53-86b8-f8f6f6f60003": {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60003",
+    "typeName": "azure_synapse_dedicated_sql_column",
+    "status": "ACTIVE",
+    "attributes": {
+     "name": "Email",
+     "qualifiedName": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#Email",
+     "userDescription": "E-mail principal do cliente.",
+     "description": null,
+     "data_type": "nvarchar"
+    },
+    "classifications": [
+     {
+      "typeName": "MICROSOFT.PERSONAL.EMAIL",
+      "entityGuid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60003",
+      "entityStatus": "ACTIVE",
+      "propagate": null
+     }
+    ],
+    "labels": [],
+    "relationshipAttributes": {
+     "meanings": []
+    }
+   },
+   "2a0695d6-3ab4-4c53-86b8-f8f6f6f60006": {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60006",
+    "typeName": "azure_synapse_dedicated_sql_column",
+    "status": "ACTIVE",
+    "attributes": {
+     "name": "City",
+     "qualifiedName": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#City",
+     "userDescription": "Cidade de residência.",
+     "description": null,
+     "data_type": "nvarchar"
+    },
+    "classifications": [],
+    "labels": [],
+    "relationshipAttributes": {
+     "meanings": []
+    }
+   },
+   "2a0695d6-3ab4-4c53-86b8-f8f6f6f60005": {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60005",
+    "typeName": "azure_synapse_dedicated_sql_column",
+    "status": "ACTIVE",
+    "attributes": {
+     "name": "BirthDate",
+     "qualifiedName": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#BirthDate",
+     "userDescription": "Data de nascimento.",
+     "description": null,
+     "data_type": "date"
+    },
+    "classifications": [
+     {
+      "typeName": "MICROSOFT.PERSONAL.DATE_OF_BIRTH",
+      "entityGuid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60005",
+      "entityStatus": "ACTIVE",
+      "propagate": null
+     }
+    ],
+    "labels": [],
+    "relationshipAttributes": {
+     "meanings": []
+    }
+   },
+   "2a0695d6-3ab4-4c53-86b8-f8f6f6f60004": {
+    "guid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60004",
+    "typeName": "azure_synapse_dedicated_sql_column",
+    "status": "ACTIVE",
+    "attributes": {
+     "name": "CPF",
+     "qualifiedName": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimCustomer#CPF",
+     "userDescription": "CPF do titular, sem pontuação.",
+     "description": null,
+     "data_type": "char"
+    },
+    "classifications": [
+     {
+      "typeName": "MICROSOFT.GOVERNMENT.BRAZIL.CPF_NUMBER",
+      "entityGuid": "2a0695d6-3ab4-4c53-86b8-f8f6f6f60004",
+      "entityStatus": "ACTIVE",
+      "propagate": null
+     }
+    ],
+    "labels": [],
+    "relationshipAttributes": {
+     "meanings": [
+      {
+       "guid": "7f0a9794-5bf5-431f-b9bc-4af2fee14280",
+       "typeName": "AtlasGlossaryTerm",
+       "displayText": "CPF",
+       "relationshipStatus": "ACTIVE",
+       "entityStatus": "ACTIVE"
+      }
+     ]
+    }
+   }
+  }
+ },
+ "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimProduct": {
+  "entity": {
+   "guid": "97afdf8c-dc58-4c10-bd43-e6f6f6f60000",
+   "typeName": "azure_synapse_dedicated_sql_table",
+   "status": "ACTIVE",
+   "attributes": {
+    "name": "DimProduct",
+    "qualifiedName": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimProduct",
+    "userDescription": null,
+    "description": "Catálogo de produtos importado do ERP."
+   },
+   "classifications": [],
+   "labels": [],
+   "relationshipAttributes": {
+    "columns": [
+     {
+      "guid": "97afdf8c-dc58-4c10-bd43-e6f6f6f60002",
+      "typeName": "azure_synapse_dedicated_sql_column",
+      "displayText": "ProductName",
+      "relationshipStatus": "ACTIVE",
+      "entityStatus": "ACTIVE"
+     },
+     {
+      "guid": "97afdf8c-dc58-4c10-bd43-e6f6f6f60001",
+      "typeName": "azure_synapse_dedicated_sql_column",
+      "displayText": "ProductID",
+      "relationshipStatus": "ACTIVE",
+      "entityStatus": "ACTIVE"
+     },
+     {
+      "guid": "97afdf8c-dc58-4c10-bd43-e6f6f6f60003",
+      "typeName": "azure_synapse_dedicated_sql_column",
+      "displayText": "Category",
+      "relationshipStatus": "ACTIVE",
+      "entityStatus": "ACTIVE"
+     }
+    ],
+    "meanings": []
+   }
+  },
+  "columns": {
+   "97afdf8c-dc58-4c10-bd43-e6f6f6f60002": {
+    "guid": "97afdf8c-dc58-4c10-bd43-e6f6f6f60002",
+    "typeName": "azure_synapse_dedicated_sql_column",
+    "status": "ACTIVE",
+    "attributes": {
+     "name": "ProductName",
+     "qualifiedName": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimProduct#ProductName",
+     "userDescription": "Nome comercial do produto.",
+     "description": null,
+     "data_type": "nvarchar"
+    },
+    "classifications": [],
+    "labels": [],
+    "relationshipAttributes": {
+     "meanings": []
+    }
+   },
+   "97afdf8c-dc58-4c10-bd43-e6f6f6f60001": {
+    "guid": "97afdf8c-dc58-4c10-bd43-e6f6f6f60001",
+    "typeName": "azure_synapse_dedicated_sql_column",
+    "status": "ACTIVE",
+    "attributes": {
+     "name": "ProductID",
+     "qualifiedName": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimProduct#ProductID",
+     "userDescription": "Identificador do produto.",
+     "description": null,
+     "data_type": "int"
+    },
+    "classifications": [],
+    "labels": [],
+    "relationshipAttributes": {
+     "meanings": []
+    }
+   },
+   "97afdf8c-dc58-4c10-bd43-e6f6f6f60003": {
+    "guid": "97afdf8c-dc58-4c10-bd43-e6f6f6f60003",
+    "typeName": "azure_synapse_dedicated_sql_column",
+    "status": "ACTIVE",
+    "attributes": {
+     "name": "Category",
+     "qualifiedName": "mssql://p2ucdemo.sql.azuresynapse.net/sqlpool01/sales/DimProduct#Category",
+     "userDescription": "Categoria do produto.\nValores possíveis:\n  - Eletrônicos\n  - Casa",
+     "description": null,
+     "data_type": "nvarchar"
+    },
+    "classifications": [],
+    "labels": [],
+    "relationshipAttributes": {
+     "meanings": []
+    }
+   }
+  }
+ }
+}
