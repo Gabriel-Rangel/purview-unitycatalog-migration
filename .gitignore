@@ -5,3 +5,4 @@ __pycache__/
 .databricks/
 .claude/
 .DS_Store
+.isaac/
